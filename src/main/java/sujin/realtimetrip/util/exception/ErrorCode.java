@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
-    //user
-    DIFFERENT_VERIFY_CODE(HttpStatus.BAD_REQUEST, "1001", "이메일 인증번호가 일치하지 않습니다.");
+    //mail
+    AUTH_CODE_VERIFICATION_FAILED(HttpStatus.BAD_REQUEST, "1001", "인증 번호 검증에 실패하였습니다. 다시 시도해 주세요.");
 
     private final HttpStatus status;
     private final String code;

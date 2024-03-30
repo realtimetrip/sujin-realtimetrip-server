@@ -4,6 +4,7 @@ import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sujin.realtimetrip.Mail.Dto.EmailAuthDto;
 import sujin.realtimetrip.Mail.Dto.EmailDto;
 import sujin.realtimetrip.Mail.Service.EmailService;
 import sujin.realtimetrip.util.ApiResponse;
@@ -23,5 +24,12 @@ public class EmailController {
         emailService.deleteExistCode(emailDto.getEmail());
 
         return ResponseEntity.ok().body(ApiResponse.success(emailService.sendEmailAuthCode(emailDto.getEmail())));
+    }
+
+    // 이메일 인증 번호 검사
+    @PostMapping("/check-authcode")
+    public ResponseEntity<ApiResponse<Boolean>> checkAuthCode(@RequestBody EmailAuthDto emailAuthDto){
+        return ResponseEntity.ok().body(ApiResponse.success(emailService.verifyAuthCode(emailAuthDto.getEmail(), emailAuthDto.getAuthCode())));
+
     }
 }

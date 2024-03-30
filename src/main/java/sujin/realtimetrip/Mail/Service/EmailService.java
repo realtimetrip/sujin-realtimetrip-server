@@ -10,7 +10,11 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
 import sujin.realtimetrip.Mail.Entity.AuthCode;
 import sujin.realtimetrip.Mail.Repository.EmailRepository;
+import sujin.realtimetrip.util.exception.CustomException;
+import sujin.realtimetrip.util.exception.ErrorCode;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -77,4 +81,20 @@ public class EmailService {
         emailRepository.deleteByEmail(email);
     }
 
+    // 이메일 인증 번호 검사
+    public Boolean verifyAuthCode(String email, String authCode) {
+        Optional<AuthCode> authCodeOptional = emailRepository.findByEmail(email);
+
+        // 이메일로 인증 번호를 찾았는지, 인증 코드의 만료 시간이 현재 시간보다 이전인지, 인증 코드가 일치하는지 검사
+        if (authCodeOptional.isEmpty() ||
+                authCodeOptional.get().getExpiresAt().isBefore(LocalDateTime.now()) ||
+                !authCodeOptional.get().getAuthCode().equals(authCode)) {
+
+            // 구체적인 오류 원인을 제공하지 않고, 일반적인 오류 메시지를 사용자에게 반환
+            throw new CustomException(ErrorCode.AUTH_CODE_VERIFICATION_FAILED);
+        }
+
+        // 인증 코드가 일치하고, 만료되지 않았으면 true 반환
+        return true;
+    }
 }

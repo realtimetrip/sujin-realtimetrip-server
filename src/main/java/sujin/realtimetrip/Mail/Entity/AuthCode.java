@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sujin.realtimetrip.User.entity.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
