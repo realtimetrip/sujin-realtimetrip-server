@@ -2,11 +2,18 @@ package sujin.realtimetrip.User.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import sujin.realtimetrip.Mail.Entity.AuthCode;
 
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +28,6 @@ public class User {
     private String nickName;
 
     private String profile;
-
-    public User(){
-
-    }
 
     public User(String email, String password, String nickName){
         this.email = email;
