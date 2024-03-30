@@ -29,11 +29,6 @@ public class User {
 
     private String profile;
 
-    // AuthCode 엔티티와 1:1 관계 설정
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "auth_code_id", referencedColumnName = "id")
-    private AuthCode authCode;
-
     public User(String email, String password, String nickName){
         this.email = email;
         this.password = password;

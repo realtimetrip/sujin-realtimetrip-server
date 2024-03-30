@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sujin.realtimetrip.User.entity.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,10 +20,14 @@ public class AuthCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long authCodeId;
 
-    private int authNum;
+    private String email;
+    private String authCode;
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "authCode")
-    private User user;
+    public AuthCode(String email, String authCode){
+        this.email = email;
+        this.authCode = authCode;
+        this.createdAt = LocalDateTime.now();;
+    }
 
 }
