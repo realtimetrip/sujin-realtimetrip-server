@@ -10,6 +10,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
 import sujin.realtimetrip.Mail.Entity.AuthCode;
 import sujin.realtimetrip.Mail.Repository.EmailRepository;
+
 import java.util.Random;
 
 @Service
@@ -53,9 +54,11 @@ public class EmailService {
 
     // 랜덤 인증 코드 생성
     public String createCode(String email) {
+        // 랜덤 인증 코드 생성
         Random random = new Random();
         String authCode = String.valueOf(random.nextInt(9000)+1000); // 범위: 1000 ~ 9999
 
+        // 이메일 및 랜덤 인증 코드 저장
         AuthCode authcode = new AuthCode(email, authCode);
         emailRepository.saveAndFlush(authcode);
 
@@ -67,6 +70,11 @@ public class EmailService {
         Context context = new Context();
         context.setVariable("code", authCode); // 생성된 인증 번호가 th:text="${code}와 매핑
         return templateEngine.process("verification-email", context); // verification-email.html
+    }
+
+    // 유저가 여러번 인증 코드를 보낸 경우 기존 인증번호 삭제
+    public void deleteExistCode(String email){
+        emailRepository.deleteByEmail(email);
     }
 
 }

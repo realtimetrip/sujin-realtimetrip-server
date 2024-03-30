@@ -22,12 +22,12 @@ public class AuthCode {
 
     private String email;
     private String authCode;
-    private LocalDateTime createdAt;
+    private LocalDateTime expiresAt;
 
     public AuthCode(String email, String authCode){
         this.email = email;
         this.authCode = authCode;
-        this.createdAt = LocalDateTime.now();;
+        this.expiresAt = LocalDateTime.now().plusMinutes(5); // 유효기간 5분으로 설정
     }
 
 }
