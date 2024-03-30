@@ -34,4 +34,12 @@ public class UserService {
         // 회원가입된 유저 정보 반환
         return new UserDto(savedUser.getUserId(), savedUser.getEmail(), savedUser.getNickName());
     }
+
+    // 로그인
+    public User login(String email, String password) {
+        // 이메일과 비밀번호가 일치하는 User 객체 반환
+        return userRepository.findByEmail(email)
+                .filter(m -> m.getPassword().equals(password)) // 비밀번호 일치 여부 확인
+                .orElse(null); // 일치하는 사용자가 없을 경우 null 반환
+    }
 }
