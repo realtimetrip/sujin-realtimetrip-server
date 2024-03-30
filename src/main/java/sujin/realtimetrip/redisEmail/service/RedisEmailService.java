@@ -69,7 +69,7 @@ public class RedisEmailService {
     }
 
     public Boolean CheckAuthNum(String email, String authCode) {
-        if(redisUtil.getData(authCode)==null || !redisUtil.getData(authCode).equals(email)){
+        if(redisUtil.getData(email)==null || !redisUtil.getData(email).equals(authCode)){
             throw new CustomException(ErrorCode.AUTH_CODE_VERIFICATION_FAILED);
         }
         else{
