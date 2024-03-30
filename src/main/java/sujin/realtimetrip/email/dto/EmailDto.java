@@ -1,4 +1,4 @@
-package sujin.realtimetrip.Mail.Dto;
+package sujin.realtimetrip.email.dto;
 
 import lombok.Data;
 

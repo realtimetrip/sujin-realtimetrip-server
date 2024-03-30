@@ -1,12 +1,12 @@
-package sujin.realtimetrip.Mail.Controller;
+package sujin.realtimetrip.email.controller;
 
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sujin.realtimetrip.Mail.Dto.EmailAuthDto;
-import sujin.realtimetrip.Mail.Dto.EmailDto;
-import sujin.realtimetrip.Mail.Service.EmailService;
+import sujin.realtimetrip.email.dto.EmailAuthDto;
+import sujin.realtimetrip.email.dto.EmailDto;
+import sujin.realtimetrip.email.service.EmailService;
 import sujin.realtimetrip.util.ApiResponse;
 
 @RestController

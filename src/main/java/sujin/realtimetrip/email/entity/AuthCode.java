@@ -1,4 +1,4 @@
-package sujin.realtimetrip.Mail.Entity;
+package sujin.realtimetrip.email.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

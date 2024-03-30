@@ -1,4 +1,4 @@
-package sujin.realtimetrip.User.controller;
+package sujin.realtimetrip.user.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -6,11 +6,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sujin.realtimetrip.User.dto.LoginDto;
-import sujin.realtimetrip.User.dto.SignUpDto;
-import sujin.realtimetrip.User.dto.UserDto;
-import sujin.realtimetrip.User.entity.User;
-import sujin.realtimetrip.User.service.UserService;
+import sujin.realtimetrip.user.dto.LoginDto;
+import sujin.realtimetrip.user.dto.SignUpDto;
+import sujin.realtimetrip.user.dto.UserDto;
+import sujin.realtimetrip.user.entity.User;
+import sujin.realtimetrip.user.service.UserService;
 import sujin.realtimetrip.util.ApiResponse;
 import sujin.realtimetrip.util.exception.CustomException;
 import sujin.realtimetrip.util.exception.ErrorCode;

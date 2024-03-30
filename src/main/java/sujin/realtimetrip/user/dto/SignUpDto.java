@@ -1,4 +1,4 @@
-package sujin.realtimetrip.User.dto;
+package sujin.realtimetrip.user.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

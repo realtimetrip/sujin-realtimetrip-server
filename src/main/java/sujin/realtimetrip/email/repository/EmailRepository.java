@@ -1,8 +1,8 @@
-package sujin.realtimetrip.Mail.Repository;
+package sujin.realtimetrip.email.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import sujin.realtimetrip.Mail.Entity.AuthCode;
+import sujin.realtimetrip.email.entity.AuthCode;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,4 +1,4 @@
-package sujin.realtimetrip.Mail.Service;
+package sujin.realtimetrip.email.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -8,8 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
-import sujin.realtimetrip.Mail.Entity.AuthCode;
-import sujin.realtimetrip.Mail.Repository.EmailRepository;
+import sujin.realtimetrip.email.entity.AuthCode;
+import sujin.realtimetrip.email.repository.EmailRepository;
 import sujin.realtimetrip.util.exception.CustomException;
 import sujin.realtimetrip.util.exception.ErrorCode;
 

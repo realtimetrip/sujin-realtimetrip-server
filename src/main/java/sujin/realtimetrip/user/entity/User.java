@@ -1,4 +1,4 @@
-package sujin.realtimetrip.User.entity;
+package sujin.realtimetrip.user.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sujin.realtimetrip.Mail.Entity.AuthCode;
 
 
 @Entity

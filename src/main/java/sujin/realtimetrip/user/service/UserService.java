@@ -1,12 +1,12 @@
-package sujin.realtimetrip.User.service;
+package sujin.realtimetrip.user.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sujin.realtimetrip.User.dto.SignUpDto;
-import sujin.realtimetrip.User.dto.UserDto;
-import sujin.realtimetrip.User.entity.User;
-import sujin.realtimetrip.User.repository.UserRepository;
+import sujin.realtimetrip.user.dto.SignUpDto;
+import sujin.realtimetrip.user.dto.UserDto;
+import sujin.realtimetrip.user.entity.User;
+import sujin.realtimetrip.user.repository.UserRepository;
 import sujin.realtimetrip.util.exception.CustomException;
 import sujin.realtimetrip.util.exception.ErrorCode;
 

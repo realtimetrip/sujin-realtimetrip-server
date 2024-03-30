@@ -1,11 +1,11 @@
-package sujin.realtimetrip.Mail.Scheduler;
+package sujin.realtimetrip.email.scheduler;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import sujin.realtimetrip.Mail.Entity.AuthCode;
-import sujin.realtimetrip.Mail.Repository.EmailRepository;
+import sujin.realtimetrip.email.entity.AuthCode;
+import sujin.realtimetrip.email.repository.EmailRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

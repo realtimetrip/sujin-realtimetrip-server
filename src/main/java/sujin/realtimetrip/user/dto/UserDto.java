@@ -1,4 +1,4 @@
-package sujin.realtimetrip.User.dto;
+package sujin.realtimetrip.user.dto;
 
 import lombok.Data;
 
