@@ -7,8 +7,8 @@ import sujin.realtimetrip.user.dto.SignUpDto;
 import sujin.realtimetrip.user.dto.UserDto;
 import sujin.realtimetrip.user.entity.User;
 import sujin.realtimetrip.user.repository.UserRepository;
-import sujin.realtimetrip.util.exception.CustomException;
-import sujin.realtimetrip.util.exception.ErrorCode;
+import sujin.realtimetrip.global.exception.CustomException;
+import sujin.realtimetrip.global.exception.ErrorCode;
 
 import java.util.Optional;
 

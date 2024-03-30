@@ -18,7 +18,7 @@ public class EmailController {
     private final EmailService emailService;
 
     // 인증 번호 이메일 전송
-    @PostMapping("/send-authcode")
+    @PostMapping("/send-authCode")
     public ResponseEntity<ApiResponse<String>> mailConfirm(@RequestBody @Valid EmailDto emailDto) throws MessagingException {
 
         // 이메일 인증을 두 번한 경우 이전 인증번호 삭제
@@ -28,7 +28,7 @@ public class EmailController {
     }
 
     // 이메일 인증 번호 검사
-    @PostMapping("/check-authcode")
+    @PostMapping("/check-authCode")
     public ResponseEntity<ApiResponse<Boolean>> checkAuthCode(@RequestBody @Valid EmailAuthDto emailAuthDto){
         return ResponseEntity.ok().body(ApiResponse.success(emailService.verifyAuthCode(emailAuthDto.getEmail(), emailAuthDto.getAuthCode())));
 

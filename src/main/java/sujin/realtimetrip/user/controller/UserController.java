@@ -11,9 +11,9 @@ import sujin.realtimetrip.user.dto.SignUpDto;
 import sujin.realtimetrip.user.dto.UserDto;
 import sujin.realtimetrip.user.entity.User;
 import sujin.realtimetrip.user.service.UserService;
-import sujin.realtimetrip.util.ApiResponse;
-import sujin.realtimetrip.util.exception.CustomException;
-import sujin.realtimetrip.util.exception.ErrorCode;
+import sujin.realtimetrip.global.response.ApiResponse;
+import sujin.realtimetrip.global.exception.CustomException;
+import sujin.realtimetrip.global.exception.ErrorCode;
 
 @RestController
 @RequiredArgsConstructor

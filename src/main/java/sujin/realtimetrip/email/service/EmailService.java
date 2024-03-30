@@ -85,9 +85,8 @@ public class EmailService {
     public Boolean verifyAuthCode(String email, String authCode) {
         Optional<AuthCode> authCodeOptional = emailRepository.findByEmail(email);
 
-        // 이메일로 인증 번호를 찾았는지, 인증 코드의 만료 시간이 현재 시간보다 이전인지, 인증 코드가 일치하는지 검사
+        // 이메일로 인증 번호를 찾았는지, 인증 코드가 일치하는지 검사
         if (authCodeOptional.isEmpty() ||
-                authCodeOptional.get().getExpiresAt().isBefore(LocalDateTime.now()) ||
                 !authCodeOptional.get().getAuthCode().equals(authCode)) {
 
             // 구체적인 오류 원인을 제공하지 않고, 일반적인 오류 메시지를 사용자에게 반환
