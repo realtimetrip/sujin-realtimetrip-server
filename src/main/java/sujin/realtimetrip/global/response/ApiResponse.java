@@ -1,4 +1,4 @@
-package sujin.realtimetrip.util;
+package sujin.realtimetrip.global.response;
 
 import org.springframework.http.HttpStatus;
 

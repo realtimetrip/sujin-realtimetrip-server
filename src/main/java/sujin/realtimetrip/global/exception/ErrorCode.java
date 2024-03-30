@@ -1,4 +1,4 @@
-package sujin.realtimetrip.util.exception;
+package sujin.realtimetrip.global.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

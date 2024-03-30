@@ -10,8 +10,8 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.context.Context;
 import sujin.realtimetrip.email.entity.AuthCode;
 import sujin.realtimetrip.email.repository.EmailRepository;
-import sujin.realtimetrip.util.exception.CustomException;
-import sujin.realtimetrip.util.exception.ErrorCode;
+import sujin.realtimetrip.global.exception.CustomException;
+import sujin.realtimetrip.global.exception.ErrorCode;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

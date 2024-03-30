@@ -1,4 +1,4 @@
-package sujin.realtimetrip.global.config;
+package sujin.realtimetrip.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
