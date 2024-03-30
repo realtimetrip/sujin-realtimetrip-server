@@ -8,6 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+import sujin.realtimetrip.global.exception.CustomException;
+import sujin.realtimetrip.global.exception.ErrorCode;
 import sujin.realtimetrip.util.RedisUtil;
 
 import java.util.Random;
@@ -64,5 +66,14 @@ public class RedisEmailService {
         Context context = new Context();
         context.setVariable("code", authCode); // 생성된 인증 번호가 th:text="${code}와 매핑
         return templateEngine.process("verification-email", context); // verification-email.html
+    }
+
+    public Boolean CheckAuthNum(String email, String authCode) {
+        if(redisUtil.getData(authCode)==null || !redisUtil.getData(authCode).equals(email)){
+            throw new CustomException(ErrorCode.AUTH_CODE_VERIFICATION_FAILED);
+        }
+        else{
+            return true;
+        }
     }
 }
