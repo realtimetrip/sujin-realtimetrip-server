@@ -45,7 +45,7 @@ public class EmailService {
         // 메일 전송
         emailSender.send(emailForm);
 
-        return "이메일 인증 번호 전송을 성공했습니다.";
+        return authCode;
     }
 
     // controller - 인증 번호 이메일 전송 (레디스에 인증 번호 저장)
@@ -59,7 +59,7 @@ public class EmailService {
         // 레디스에 email 및 인증 번호 저장, 유효기간 5분
         redisUtil.setDataExpire(email, redisAuthCode,60*5L);
 
-        return "이메일 인증 번호 전송을 성공했습니다.";
+        return redisAuthCode;
     }
 
     // 랜덤 인증 번호 생성
