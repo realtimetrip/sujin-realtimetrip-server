@@ -12,10 +12,10 @@ import sujin.realtimetrip.email.entity.AuthCode;
 import sujin.realtimetrip.email.repository.EmailRepository;
 import sujin.realtimetrip.global.exception.CustomException;
 import sujin.realtimetrip.global.exception.ErrorCode;
+import sujin.realtimetrip.util.RedisUtil;
 
-import java.time.LocalDateTime;
+import java.security.SecureRandom;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -30,43 +30,57 @@ public class EmailService {
     // 타임리프를 이용한 context 설정
     private final SpringTemplateEngine templateEngine;
 
-    // 인증 번호 이메일 전송
-    public String sendEmailAuthCode(String email) throws MessagingException {
+    //RedisUtil 주입
+    private final RedisUtil redisUtil;
 
+    // controller - 인증 번호 이메일 전송 (DB에 인증 번호 저장)
+    public String mailSend(String email) throws MessagingException {
+        // 랜덤 인증 번호 생성
+        String authCode = createCode();
+        // DB에 이메일 및 인증 번호 저장
+        AuthCode authcode = new AuthCode(email, authCode);
+        emailRepository.saveAndFlush(authcode);
         // 메일 양식 작성
-        MimeMessage emailForm = createEmailForm(email);
-
+        MimeMessage emailForm = createEmailForm(email, authCode);
         // 메일 전송
         emailSender.send(emailForm);
 
-        return "이메일 인증 번호 전송을 성공했습니다.";
+        return authCode;
+    }
+
+    // controller - 인증 번호 이메일 전송 (레디스에 인증 번호 저장)
+    public String redisMailSend(String email) throws MessagingException {
+        // 인증 번호 생성
+        String redisAuthCode = createCode();
+        // 메일 양식 작성
+        MimeMessage emailForm = createEmailForm(email, redisAuthCode);
+        // 메일 전송
+        emailSender.send(emailForm);
+        // 레디스에 email 및 인증 번호 저장, 유효기간 5분
+        redisUtil.setDataExpire(email, redisAuthCode,60*5L);
+
+        return redisAuthCode;
+    }
+
+    // 랜덤 인증 번호 생성
+    public String createCode() {
+        SecureRandom secureRandom = new SecureRandom();
+
+        // 1000부터 9999까지의 랜덤한 숫자 생성
+        int code = secureRandom.nextInt(9000) + 1000;
+
+        return String.valueOf(code);
     }
 
     // 메일 양식 작성
-    public MimeMessage createEmailForm(String email) throws MessagingException {
-
-        String authCode = createCode(email); // 인증 코드 생성
+    public MimeMessage createEmailForm(String email, String authCode) throws MessagingException {
         String title = "회원가입 이메일 인증"; //제목
-
         MimeMessage message = emailSender.createMimeMessage();
         message.addRecipients(MimeMessage.RecipientType.TO, email); // 받는 사람 이메일 설정
         message.setSubject(title); // 제목 설정
         message.setText(setContext(authCode), "utf-8", "html");
 
         return message;
-    }
-
-    // 랜덤 인증 코드 생성
-    public String createCode(String email) {
-        // 랜덤 인증 코드 생성
-        Random random = new Random();
-        String authCode = String.valueOf(random.nextInt(9000)+1000); // 범위: 1000 ~ 9999
-
-        // 이메일 및 랜덤 인증 코드 저장
-        AuthCode authcode = new AuthCode(email, authCode);
-        emailRepository.saveAndFlush(authcode);
-
-        return authCode;
     }
 
     // 타임리프를 이용한 context 설정
@@ -76,24 +90,35 @@ public class EmailService {
         return templateEngine.process("verification-email", context); // verification-email.html
     }
 
-    // 유저가 여러번 인증 코드를 보낸 경우 기존 인증번호 삭제
+    // 유저가 여러번 인증 번호를 보낸 경우 기존 인증번호 삭제
     public void deleteExistCode(String email){
         emailRepository.deleteByEmail(email);
     }
 
-    // 이메일 인증 번호 검사
+    // controller - 이메일 인증 번호 검증 (DB에서 인증 번호 검증)
     public Boolean verifyAuthCode(String email, String authCode) {
         Optional<AuthCode> authCodeOptional = emailRepository.findByEmail(email);
 
-        // 이메일로 인증 번호를 찾았는지, 인증 코드가 일치하는지 검사
+        // 이메일로 인증 번호를 찾았는지, 인증 번호가 일치하는지 검사
         if (authCodeOptional.isEmpty() ||
                 !authCodeOptional.get().getAuthCode().equals(authCode)) {
-
             // 구체적인 오류 원인을 제공하지 않고, 일반적인 오류 메시지를 사용자에게 반환
             throw new CustomException(ErrorCode.AUTH_CODE_VERIFICATION_FAILED);
         }
 
         // 인증 코드가 일치하고, 만료되지 않았으면 true 반환
         return true;
+    }
+
+    // controller - 이메일 인증 번호 검증 (레디스에서 인증 번호 검증
+    public Boolean redisVerifyAuthCode(String email, String authCode) {
+        // 이메일로 인증 코드를 찾았는지, 인증 코드가 일치하는지 검사
+        if(redisUtil.getData(email)==null || !redisUtil.getData(email).equals(authCode)){
+            throw new CustomException(ErrorCode.AUTH_CODE_VERIFICATION_FAILED);
+        }
+        else{
+            // 인증 코드가 일치하고, 만료되지 않았으면 true 반환
+            return true;
+        }
     }
 }
