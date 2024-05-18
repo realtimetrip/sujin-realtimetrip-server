@@ -19,8 +19,8 @@ public enum ErrorCode {
 
     //chat
     CHAT_MESSAGE_NOT_FOUNT(HttpStatus.NOT_FOUND, "3001", "채팅 메시지를 찾을 수 없습니다."),
-    CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "3002", "채팅방을 찾을 수 없습니다.");
-
+    CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "3002", "채팅방을 찾을 수 없습니다."),
+    CHAT_ROOM_ALREADY_EXISTS(HttpStatus.CONFLICT, "3003", "채팅방이 이미 존재합니다.");
 
     private final HttpStatus status;
     private final String code;
