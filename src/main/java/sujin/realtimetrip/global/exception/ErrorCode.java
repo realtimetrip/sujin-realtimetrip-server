@@ -13,7 +13,13 @@ public enum ErrorCode {
 
     //user
     USER_EMAIL_DUPLICATED(HttpStatus.CONFLICT, "2001", "이미 사용 중인 이메일입니다. 다른 이메일을 사용해 주세요."),
-    INVALID_CREDENTIALS(HttpStatus.BAD_REQUEST, "400", "이메일 또는 비밀번호가 올바르지 않습니다");
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "2002", "해당 사용자를 찾을 수 없습니다."),
+
+    INVALID_CREDENTIALS(HttpStatus.BAD_REQUEST, "2002", "이메일 또는 비밀번호가 올바르지 않습니다"),
+
+    //chat
+    CHAT_MESSAGE_NOT_FOUNT(HttpStatus.NOT_FOUND, "3001", "채팅 메시지를 찾을 수 없습니다."),
+    CHAT_ROOM_NOT_FOUND(HttpStatus.NOT_FOUND, "3002", "채팅방을 찾을 수 없습니다.");
 
 
     private final HttpStatus status;
