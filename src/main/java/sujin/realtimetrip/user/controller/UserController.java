@@ -41,7 +41,7 @@ public class UserController {
 
         // 로그인 성공 시, 사용자 ID를 포함하는 쿠키를 생성하고, HttpServletResponse에 추가
         // 쿠키는 HTTP-only로 설정되어 있으며, 만료 기간은 24시간
-        Cookie cookie = new Cookie("userId", String.valueOf(loginUser.getUserId()));
+        Cookie cookie = new Cookie("userId", String.valueOf(loginUser.getId()));
         cookie.setHttpOnly(true); // JavaScript를 통한 접근 방지
         cookie.setMaxAge(24 * 60 * 60); // 쿠키의 만료 기간을 24시간으로 설정
         response.addCookie(cookie);

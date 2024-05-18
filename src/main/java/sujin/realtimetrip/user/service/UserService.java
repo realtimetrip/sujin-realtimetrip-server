@@ -32,7 +32,7 @@ public class UserService {
         User savedUser = userRepository.saveAndFlush(new User(signUpDto.getEmail(), signUpDto.getPassword(), signUpDto.getNickName()));
 
         // 회원가입된 유저 정보 반환
-        return new UserDto(savedUser.getUserId(), savedUser.getEmail(), savedUser.getNickName());
+        return new UserDto(savedUser.getId(), savedUser.getEmail(), savedUser.getNickName());
     }
 
     // 로그인
