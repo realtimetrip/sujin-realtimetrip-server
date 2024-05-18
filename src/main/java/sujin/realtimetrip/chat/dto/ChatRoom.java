@@ -1,4 +1,4 @@
-package sujin.realtimetrip.chatting.dto;
+package sujin.realtimetrip.chat.dto;
 
 import lombok.Getter;
 import lombok.Setter;

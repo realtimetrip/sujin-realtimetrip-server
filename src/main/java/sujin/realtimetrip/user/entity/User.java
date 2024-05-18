@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sujin.realtimetrip.chatting.entity.Chat;
+import sujin.realtimetrip.chat.entity.Chat;
 
 import java.util.List;
 

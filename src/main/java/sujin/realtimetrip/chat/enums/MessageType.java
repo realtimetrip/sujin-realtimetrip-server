@@ -1,4 +1,4 @@
-package sujin.realtimetrip.chatting.enums;
+package sujin.realtimetrip.chat.enums;
 
 
 public enum MessageType {

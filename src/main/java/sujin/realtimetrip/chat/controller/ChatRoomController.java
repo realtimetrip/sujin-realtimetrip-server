@@ -1,11 +1,11 @@
-package sujin.realtimetrip.chatting.controller;
+package sujin.realtimetrip.chat.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sujin.realtimetrip.chatting.dto.ChatRoom;
-import sujin.realtimetrip.chatting.service.ChatService;
+import sujin.realtimetrip.chat.dto.ChatRoom;
+import sujin.realtimetrip.chat.service.ChatService;
 import sujin.realtimetrip.global.response.ApiResponse;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package sujin.realtimetrip.chatting;
+package sujin.realtimetrip.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,9 +8,9 @@ import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
-import sujin.realtimetrip.chatting.dto.ChatRequest;
-import sujin.realtimetrip.chatting.dto.ChatResponse;
-import sujin.realtimetrip.chatting.enums.MessageType;
+import sujin.realtimetrip.chat.dto.ChatRequest;
+import sujin.realtimetrip.chat.dto.ChatResponse;
+import sujin.realtimetrip.chat.enums.MessageType;
 import sujin.realtimetrip.global.exception.CustomException;
 import sujin.realtimetrip.global.exception.ErrorCode;
 

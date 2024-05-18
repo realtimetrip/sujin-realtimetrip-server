@@ -1,4 +1,4 @@
-package sujin.realtimetrip.chatting.entity;
+package sujin.realtimetrip.chat.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

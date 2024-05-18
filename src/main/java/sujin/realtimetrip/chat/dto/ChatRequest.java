@@ -1,8 +1,8 @@
-package sujin.realtimetrip.chatting.dto;
+package sujin.realtimetrip.chat.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import sujin.realtimetrip.chatting.enums.MessageType;
+import sujin.realtimetrip.chat.enums.MessageType;
 
 @Getter
 @Setter

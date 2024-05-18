@@ -1,11 +1,11 @@
-package sujin.realtimetrip.chatting.entity;
+package sujin.realtimetrip.chat.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sujin.realtimetrip.chatting.enums.MessageType;
+import sujin.realtimetrip.chat.enums.MessageType;
 import sujin.realtimetrip.user.entity.User;
 
 import java.time.LocalDateTime;

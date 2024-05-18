@@ -1,4 +1,4 @@
-package sujin.realtimetrip.chatting.controller;
+package sujin.realtimetrip.chat.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +8,8 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-import sujin.realtimetrip.chatting.dto.ChatRequest;
-import sujin.realtimetrip.chatting.service.ChatService;
+import sujin.realtimetrip.chat.dto.ChatRequest;
+import sujin.realtimetrip.chat.service.ChatService;
 
 
 @Slf4j
