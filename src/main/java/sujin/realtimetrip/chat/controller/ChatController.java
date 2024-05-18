@@ -2,13 +2,11 @@ package sujin.realtimetrip.chat.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import sujin.realtimetrip.chat.dto.ChatRequest;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-import sujin.realtimetrip.chat.dto.ChatRequest;
 import sujin.realtimetrip.chat.service.ChatService;
 
 
@@ -18,25 +16,11 @@ import sujin.realtimetrip.chat.service.ChatService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ChatController {
 
-    private final SimpMessageSendingOperations template;
     private final ChatService chatService;
 
-    @MessageMapping("/enterUser")
-    public void enterUser(@Payload ChatRequest chatRequest, SimpMessageHeaderAccessor headerAccessor) {
-        chatService.plusUserCnt(chatRequest.getRoomId());
-        String userUUID = chatService.addUser(chatRequest.getRoomId(), chatRequest.getNickName());
-
-        headerAccessor.getSessionAttributes().put("userUUID", userUUID);
-        headerAccessor.getSessionAttributes().put("roomId", chatRequest.getRoomId());
-
-        chatRequest.setMessage(chatRequest.getNickName() + " 님 입장!!");
-        template.convertAndSend("/sub/chat/room/" + chatRequest.getRoomId(), chatRequest);
-    }
-
-    @MessageMapping("/sendMessage")
+    @MessageMapping("/send/message")
     public void sendMessage(@Payload ChatRequest chatRequest) {
-        chatRequest.setMessage(chatRequest.getMessage());
-        template.convertAndSend("/sub/chat/room/" + chatRequest.getRoomId(), chatRequest);
+        chatService.sendMessage(chatRequest);
 
     }
 }

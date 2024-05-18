@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ChatResponse {
-    private String roomId;
+    private Long roomId;
     private Long userId;
     private String nickName;
     private String message;

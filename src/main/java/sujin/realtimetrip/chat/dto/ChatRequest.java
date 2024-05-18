@@ -7,7 +7,7 @@ import sujin.realtimetrip.chat.enums.MessageType;
 @Getter
 @Setter
 public class ChatRequest {
-    private String roomId;
+    private Long roomId;
     private Long userId;
     private String nickName;
     private String message;
