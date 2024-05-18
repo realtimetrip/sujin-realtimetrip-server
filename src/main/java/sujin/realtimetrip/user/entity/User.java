@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sujin.realtimetrip.chatting.entity.Chat;
+
+import java.util.List;
 
 
 @Entity
@@ -13,10 +16,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "user_id")
+    private Long id;
 
     @NotNull
     @Column(unique = true)
@@ -24,9 +29,13 @@ public class User {
 
     private String password;
 
+    @Column(name = "nick_name")
     private String nickName;
 
     private String profile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Chat> chats;
 
     public User(String email, String password, String nickName){
         this.email = email;
