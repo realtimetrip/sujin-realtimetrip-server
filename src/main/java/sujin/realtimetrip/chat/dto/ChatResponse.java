@@ -2,6 +2,7 @@ package sujin.realtimetrip.chat.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import sujin.realtimetrip.chat.enums.MessageType;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +13,7 @@ public class ChatResponse {
     private Long userId;
     private String nickName;
     private String message;
+    private MessageType type;
     private LocalDateTime timestamp;
 
     public ChatResponse(ChatRequest chatRequest) {
@@ -19,6 +21,7 @@ public class ChatResponse {
         this.userId = chatRequest.getUserId();
         this.message = chatRequest.getMessage();
         this.nickName = chatRequest.getNickName();
+        this.type = chatRequest.getType();
         this.timestamp = LocalDateTime.now();
     }
 }

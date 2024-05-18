@@ -18,7 +18,14 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @MessageMapping("/send/message")
+    // 채팅방 입장
+    @MessageMapping("/chat/enter")
+    public void enterUser(@Payload ChatRequest chatRequest) {
+        chatService.enterUser(chatRequest);
+    }
+
+    // 채팅 보내기
+    @MessageMapping("/chat/send")
     public void sendMessage(@Payload ChatRequest chatRequest) {
         chatService.sendMessage(chatRequest);
 
