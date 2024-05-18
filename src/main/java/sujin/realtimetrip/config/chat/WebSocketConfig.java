@@ -1,4 +1,4 @@
-package sujin.realtimetrip.config;
+package sujin.realtimetrip.config.chat;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
