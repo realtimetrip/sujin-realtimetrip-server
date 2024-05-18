@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sujin.realtimetrip.chat.entity.Chat;
+import sujin.realtimetrip.chat.entity.ChatUser;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class User {
     private String profile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Chat> chats;
+    private List<ChatUser> chatUsers;
 
     public User(String email, String password, String nickName){
         this.email = email;
