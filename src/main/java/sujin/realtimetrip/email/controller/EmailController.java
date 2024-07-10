@@ -34,8 +34,9 @@ public class EmailController {
 
     // 인증 번호 이메일 전송 (레디스로 인증 번호 저장)
     @PostMapping("/send-verification-code")
-    public ResponseEntity<ApiResponse<String>> redisMailSend(@RequestBody @Valid EmailDto emailDto) throws MessagingException {
-        return ResponseEntity.ok().body(ApiResponse.success(emailService.redisMailSend(emailDto.getEmail())));
+    public ResponseEntity<ApiResponse<Void>> redisMailSend(@RequestBody @Valid EmailDto emailDto) throws MessagingException {
+        emailService.redisMailSend(emailDto.getEmail());
+        return ResponseEntity.ok().body(ApiResponse.success(null));
     }
 
     // 이메일 인증 번호 검증 (레디스에 저장된 인증 번호 검증)
