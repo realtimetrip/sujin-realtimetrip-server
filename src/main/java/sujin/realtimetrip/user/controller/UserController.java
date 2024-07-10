@@ -2,7 +2,6 @@ package sujin.realtimetrip.user.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<UserDto>> signUpUser(@Valid @RequestBody SignUpDto signUpDto) {
+    public ResponseEntity<ApiResponse<UserDto>> signUpUser(@ModelAttribute SignUpDto signUpDto) {
         return ResponseEntity.ok().body(ApiResponse.success(userService.signUp(signUpDto)));
     }
 
