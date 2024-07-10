@@ -23,6 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.445'
 
 	compileOnly 'org.projectlombok:lombok'
 
