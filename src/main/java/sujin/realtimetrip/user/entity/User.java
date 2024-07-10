@@ -37,9 +37,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<ChatUser> chatUsers;
 
-    public User(String email, String password, String nickName){
+    public User(String email, String password, String nickName, String profile){
         this.email = email;
         this.password = password;
         this.nickName = nickName;
+        this.profile = profile;
     }
 }
