@@ -49,7 +49,7 @@ public class EmailService {
     }
 
     // controller - 인증 번호 이메일 전송 (레디스에 인증 번호 저장)
-    public String redisMailSend(String email) throws MessagingException {
+    public void redisMailSend(String email) throws MessagingException {
         // 인증 번호 생성
         String redisAuthCode = createCode();
         // 메일 양식 작성
@@ -58,8 +58,6 @@ public class EmailService {
         emailSender.send(emailForm);
         // 레디스에 email 및 인증 번호 저장, 유효기간 5분
         redisUtil.setDataExpire(email, redisAuthCode,60*5L);
-
-        return redisAuthCode;
     }
 
     // 랜덤 인증 번호 생성
