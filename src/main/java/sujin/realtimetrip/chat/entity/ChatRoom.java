@@ -22,7 +22,7 @@ public class ChatRoom {
     private Long id;
 
     @Column(name = "user_count")
-    private Long user_count;
+    private Long userCount;
 
     @Column(name = "last_chat_id")
     private Long lastChatId;
@@ -33,4 +33,10 @@ public class ChatRoom {
     @OneToOne
     @JoinColumn(name = "country_id") // 외래 키 지정
     private Country country;
+
+    public ChatRoom(Country country) {
+        this.userCount = 0L;
+        this.lastChatId = 0L;
+        this.country = country;
+    }
 }
