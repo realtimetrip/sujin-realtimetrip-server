@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import sujin.realtimetrip.chat.dto.ChatRequest;
 import sujin.realtimetrip.chat.entity.Chat;
 import sujin.realtimetrip.chat.entity.ChatRoom;
-import sujin.realtimetrip.chat.entity.ChatUser;
+import sujin.realtimetrip.chat.entity.ChatRoomUser;
 import sujin.realtimetrip.chat.enums.MessageType;
 import sujin.realtimetrip.chat.repository.ChatRepository;
 import sujin.realtimetrip.chat.repository.ChatRoomRepository;
-import sujin.realtimetrip.chat.repository.ChatUserRepository;
+import sujin.realtimetrip.chat.repository.ChatRoomUserRepository;
 import sujin.realtimetrip.global.exception.CustomException;
 import sujin.realtimetrip.global.exception.ErrorCode;
 import sujin.realtimetrip.user.entity.User;
@@ -28,7 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatService {
     private final RedisTemplate<String, Object> redisTemplate;
-    private final ChatUserRepository chatUserRepository;
+    private final ChatRoomUserRepository chatUserRepository;
     private final ChannelTopic channelTopic;
     private final ChatRepository chatRepository;
     private final ChatRoomRepository chatRoomRepository;
@@ -38,7 +38,7 @@ public class ChatService {
     public void sendMessage(ChatRequest chatRequest) {
         if (chatRequest.getType().equals(MessageType.TALK)) {
             // 채팅방에 입장했던 유저인지 확인
-            ChatUser chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getRoomId(), chatRequest.getUserId())
+            ChatRoomUser chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getRoomId(), chatRequest.getUserId())
                     .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
             // 채팅방 불러오기
             ChatRoom chatRoom = chatRoomRepository.findById(chatRequest.getRoomId())
@@ -70,7 +70,7 @@ public class ChatService {
     public void enterUser(ChatRequest chatRequest) {
         if (chatRequest.getType().equals(MessageType.ENTER)) {
             // 이미 채팅방에 입장했던 유저인지 확인
-            Optional<ChatUser> chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getRoomId(), chatRequest.getUserId());
+            Optional<ChatRoomUser> chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getRoomId(), chatRequest.getUserId());
 
             if (chatUser.isPresent()) {
                 throw new CustomException(ErrorCode.USER_ALREADY_IN_CHAT_ROOM);
@@ -85,7 +85,7 @@ public class ChatService {
                     .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
             // chatUser 객체 생성 및 저장
-            ChatUser newChatUser = new ChatUser();
+            ChatRoomUser newChatUser = new ChatRoomUser();
             newChatUser.setChatRoom(chatRoom);
             newChatUser.setUser(user);
             chatUserRepository.save(newChatUser);

@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sujin.realtimetrip.chat.enums.MessageType;
-import sujin.realtimetrip.user.entity.User;
 
 import java.time.LocalDateTime;
 
@@ -31,7 +30,7 @@ public class Chat {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_user_id")
-    private ChatUser chatUser;
+    private ChatRoomUser chatUser;
 
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, updatable = false)
