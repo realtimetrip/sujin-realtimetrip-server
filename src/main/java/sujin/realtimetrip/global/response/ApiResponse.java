@@ -49,7 +49,7 @@ public class ApiResponse<T> {
 
     // 성공 응답 생성
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(true, String.valueOf(HttpStatus.OK.value()), "Success", data);
+        return new ApiResponse<>(true, String.valueOf(HttpStatus.OK.value()), "ok", data);
     }
 
 }
