@@ -84,4 +84,10 @@ public class UserService {
         assert user != null;
         return new UserDto(user.getId(), user.getEmail(), user.getNickName(), user.getProfile());
     }
+
+    public UserDto getUser(Long userId) {
+        // userId로 유저 프로필 조회
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        return new UserDto(user.getId(), user.getEmail(), user.getNickName(), user.getProfile());
+    }
 }

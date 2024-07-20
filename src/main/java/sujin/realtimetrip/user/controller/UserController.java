@@ -46,4 +46,10 @@ public class UserController {
 
         return ResponseEntity.ok().body(ApiResponse.success(loginUser));
     }
+
+    // 유저 프로필 조회
+    @GetMapping("/get-profile/{userId}")
+    public ResponseEntity<ApiResponse<UserDto>> getUser(@PathVariable Long userId) {
+        return ResponseEntity.ok().body(ApiResponse.success(userService.getUser(userId)));
+    }
 }
