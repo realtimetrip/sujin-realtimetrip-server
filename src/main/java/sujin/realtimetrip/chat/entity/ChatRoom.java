@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sujin.realtimetrip.country.entity.Country;
 
 import java.util.List;
 
@@ -20,14 +21,16 @@ public class ChatRoom {
     @Column(name = "chat_room_id")
     private Long id;
 
-    @Column(name = "country_name")
-    private String countryName;
+    @Column(name = "user_count")
+    private Long user_count;
+
+    @Column(name = "last_chat_id")
+    private Long lastChatId;
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
     private List<Chat> chats;
 
-    public ChatRoom(String countryName) {
-        this.countryName = countryName;
-    }
-
+    @OneToOne
+    @JoinColumn(name = "country_id") // 외래 키 지정
+    private Country country;
 }
