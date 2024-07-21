@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import sujin.realtimetrip.user.dto.LoginDto;
 import sujin.realtimetrip.user.dto.SignUpDto;
 import sujin.realtimetrip.user.dto.UserDto;
-import sujin.realtimetrip.user.entity.User;
 import sujin.realtimetrip.user.service.UserService;
 import sujin.realtimetrip.global.response.ApiResponse;
 import sujin.realtimetrip.global.exception.CustomException;
@@ -28,10 +27,10 @@ public class UserController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<String>> login(@RequestBody LoginDto loginRequest, HttpServletResponse response) {
+    public ResponseEntity<ApiResponse<UserDto>> login(@RequestBody LoginDto loginRequest, HttpServletResponse response) {
 
         // 이메일과 비밀번호가 일치하는 사용자 찾기
-        User loginUser = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+        UserDto loginUser = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         // 이메일과 비밀번호가 일치하는 사용자가 없으면 에러 반환
         if (loginUser == null) {
@@ -40,11 +39,17 @@ public class UserController {
 
         // 로그인 성공 시, 사용자 ID를 포함하는 쿠키를 생성하고, HttpServletResponse에 추가
         // 쿠키는 HTTP-only로 설정되어 있으며, 만료 기간은 24시간
-        Cookie cookie = new Cookie("userId", String.valueOf(loginUser.getId()));
+        Cookie cookie = new Cookie("userId", String.valueOf(loginUser.getUserId()));
         cookie.setHttpOnly(true); // JavaScript를 통한 접근 방지
         cookie.setMaxAge(24 * 60 * 60); // 쿠키의 만료 기간을 24시간으로 설정
         response.addCookie(cookie);
 
-        return ResponseEntity.ok().body(ApiResponse.success("로그인을 성공하였습니다."));
+        return ResponseEntity.ok().body(ApiResponse.success(loginUser));
+    }
+
+    // 유저 프로필 조회
+    @GetMapping("/get-profile/{userId}")
+    public ResponseEntity<ApiResponse<UserDto>> getUser(@PathVariable Long userId) {
+        return ResponseEntity.ok().body(ApiResponse.success(userService.getUser(userId)));
     }
 }

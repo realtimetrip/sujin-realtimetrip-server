@@ -24,7 +24,10 @@ public enum ErrorCode {
 
     // AWS S3 image upload
     FILE_NAME_CANNOT_BE_NULL(HttpStatus.BAD_REQUEST, "4001", "파일 이름은 null일 수 없습니다."),
-    ERROR_SAVING_IMAGE_TO_S3(HttpStatus.INTERNAL_SERVER_ERROR, "4002", "AWS S3에 이미지를 저장하는 동안 오류가 발생했습니다.");
+    ERROR_SAVING_IMAGE_TO_S3(HttpStatus.INTERNAL_SERVER_ERROR, "4002", "AWS S3에 이미지를 저장하는 동안 오류가 발생했습니다."),
+
+    //country
+    COUNTRY_CODE_DUPLICATED(HttpStatus.CONFLICT, "5001", "이미 등록된 나라입니다.");
 
     private final HttpStatus status;
     private final String code;

@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @DynamicUpdate
 @Table(name = "chat_user")
-public class ChatUser {
+public class ChatRoomUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_user_id")

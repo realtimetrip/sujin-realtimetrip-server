@@ -109,14 +109,10 @@ public class EmailService {
     }
 
     // controller - 이메일 인증 번호 검증 (레디스에서 인증 번호 검증
-    public Boolean redisVerifyAuthCode(String email, String authCode) {
+    public void redisVerifyAuthCode(String email, String authCode) {
         // 이메일로 인증 코드를 찾았는지, 인증 코드가 일치하는지 검사
         if(redisUtil.getData(email)==null || !redisUtil.getData(email).equals(authCode)){
             throw new CustomException(ErrorCode.AUTH_CODE_VERIFICATION_FAILED);
-        }
-        else{
-            // 인증 코드가 일치하고, 만료되지 않았으면 true 반환
-            return true;
         }
     }
 }

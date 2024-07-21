@@ -28,7 +28,7 @@ public class EmailController {
     // 이메일 인증 번호 검증 (DB에 저장된 인증 번호 검증)
     @PostMapping("/verify-email/with-db")
     public ResponseEntity<ApiResponse<Boolean>> verifyAuthCode(@RequestBody @Valid EmailAuthDto emailAuthDto){
-        return ResponseEntity.ok().body(ApiResponse.success(emailService.verifyAuthCode(emailAuthDto.getEmail(), emailAuthDto.getAuthCode())));
+        return ResponseEntity.ok().body(ApiResponse.success(emailService.verifyAuthCode(emailAuthDto.getEmail(), emailAuthDto.getVerificationCode())));
 
     }
 
@@ -41,8 +41,9 @@ public class EmailController {
 
     // 이메일 인증 번호 검증 (레디스에 저장된 인증 번호 검증)
     @PostMapping("/verify-email")
-    public ResponseEntity<ApiResponse<Boolean>> redisVerifyAuthCode(@RequestBody @Valid EmailAuthDto emailAuthDto){
-        return ResponseEntity.ok().body(ApiResponse.success(emailService.redisVerifyAuthCode(emailAuthDto.getEmail(),emailAuthDto.getAuthCode())));
+    public ResponseEntity<ApiResponse<Void>> redisVerifyAuthCode(@RequestBody @Valid EmailAuthDto emailAuthDto){
+        emailService.redisVerifyAuthCode(emailAuthDto.getEmail(),emailAuthDto.getVerificationCode());
+        return ResponseEntity.ok().body(ApiResponse.success(null));
     }
 
 }

@@ -34,7 +34,7 @@ public class RedisSubscriber implements MessageListener {
             // ChatMessageRequest 객체를 GetChatMessageResponse 객체로 변환
             ChatResponse chatMessageResponse = new ChatResponse(roomMessage);
             // 특정 WebSocket 경로로 메시지 전송
-            messagingTemplate.convertAndSend("/sub/chat/room/" + roomMessage.getRoomId(), chatMessageResponse);
+            messagingTemplate.convertAndSend("/sub/chat/room/" + roomMessage.getChatRoomId(), chatMessageResponse);
         } catch (Exception e) {
             throw new CustomException(ErrorCode.CHAT_MESSAGE_NOT_FOUNT);
         }

@@ -11,5 +11,5 @@ public class EmailAuthDto {
     private String email;
 
     @NotEmpty(message = "인증 번호를 입력해 주세요")
-    private String authCode;
+    private String verificationCode;
 }

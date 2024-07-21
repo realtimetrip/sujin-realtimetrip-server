@@ -35,7 +35,7 @@ public class UserService {
         Optional<User> findUser = userRepository.findByEmail(signUpDto.getEmail());
 
         // 이미 사용된 이메일인 경우 에러 반환
-        if(!findUser.isEmpty())
+        if(findUser.isPresent())
             throw new CustomException(ErrorCode.USER_EMAIL_DUPLICATED);
 
         // 프로필 사진 s3에 저장
@@ -76,10 +76,18 @@ public class UserService {
     }
 
         // 로그인
-    public User login(String email, String password) {
+    public UserDto login(String email, String password) {
         // 이메일과 비밀번호가 일치하는 User 객체 반환
-        return userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .filter(m -> m.getPassword().equals(password)) // 비밀번호 일치 여부 확인
                 .orElse(null); // 일치하는 사용자가 없을 경우 null 반환
+        assert user != null;
+        return new UserDto(user.getId(), user.getEmail(), user.getNickName(), user.getProfile());
+    }
+
+    public UserDto getUser(Long userId) {
+        // userId로 유저 프로필 조회
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        return new UserDto(user.getId(), user.getEmail(), user.getNickName(), user.getProfile());
     }
 }
