@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import sujin.realtimetrip.chat.dto.ChatRequest;
@@ -21,6 +22,7 @@ import sujin.realtimetrip.user.repository.UserRepository;
 public class RedisSubscriber implements MessageListener {
     // 객체 매핑 및 Redis, WebSocket 템플릿 주입
     private final ObjectMapper objectMapper;
+    private final StringRedisTemplate stringRedisTemplate;
     private final RedisTemplate<String, Object> redisTemplate;
     private final SimpMessageSendingOperations messagingTemplate;
     private final UserRepository userRepository;
@@ -31,14 +33,25 @@ public class RedisSubscriber implements MessageListener {
         try {
             // Redis 메시지를 문자열로 역직렬화
             String publishMessage = redisTemplate.getStringSerializer().deserialize(message.getBody());
+
             // 역직렬화된 문자열을 ChatMessageRequest 객체로 변환
             ChatRequest roomMessage = objectMapper.readValue(publishMessage, ChatRequest.class);
 
+            // 사용자 정보 조회
             User user = userRepository.findById(roomMessage.getUserId())
                     .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
+            // Redis에서 chatId를 위한 카운터 증가
+            String chatIdKey = "chatRoom:" + roomMessage.getChatRoomId() + ":nextChatId";
+            Long chatId = stringRedisTemplate.opsForValue().increment(chatIdKey);
+
+
             // ChatMessageRequest 객체를 GetChatMessageResponse 객체로 변환
-            ChatResponse chatMessageResponse = new ChatResponse(roomMessage, user.getNickName());
+            ChatResponse chatMessageResponse = new ChatResponse(chatId, roomMessage, user.getNickName());
+
+            // Redis에 메시지 저장
+            String chatListKey = "chatRoom:" + roomMessage.getChatRoomId() + ":messages";
+            redisTemplate.opsForList().rightPush(chatListKey, objectMapper.writeValueAsString(chatMessageResponse));
 
             // 특정 WebSocket 경로로 메시지 전송
             messagingTemplate.convertAndSend("/sub/chat/room/" + roomMessage.getChatRoomId(), chatMessageResponse);
