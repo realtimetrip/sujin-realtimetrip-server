@@ -3,6 +3,7 @@ package sujin.realtimetrip.chat.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import sujin.realtimetrip.chat.dto.ChatRoomDto;
 import sujin.realtimetrip.chat.dto.CountryDto;
 import sujin.realtimetrip.chat.entity.ChatRoom;
 import sujin.realtimetrip.chat.repository.ChatRoomRepository;
@@ -14,6 +15,7 @@ import sujin.realtimetrip.global.exception.ErrorCode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -65,5 +67,15 @@ public class ChatRoomService {
         }
 
         return countries;
+    }
+
+    public List<ChatRoomDto> getChatRoom() {
+        List<ChatRoom> chatRooms = chatRoomRepository.findAll();
+        return chatRooms.stream()
+                .map(room -> new ChatRoomDto(
+                        room.getId().toString(),
+                        room.getCountry().getCountryName(),
+                        room.getUserCount()))
+                .collect(Collectors.toList());
     }
 }
