@@ -27,7 +27,8 @@ public enum ErrorCode {
     ERROR_SAVING_IMAGE_TO_S3(HttpStatus.INTERNAL_SERVER_ERROR, "4002", "AWS S3에 이미지를 저장하는 동안 오류가 발생했습니다."),
 
     //country
-    COUNTRY_CODE_DUPLICATED(HttpStatus.CONFLICT, "5001", "이미 등록된 나라입니다.");
+    COUNTRY_CODE_DUPLICATED(HttpStatus.CONFLICT, "5001", "이미 등록된 나라입니다."),
+    COUNTRY_NOT_FOUND(HttpStatus.NOT_FOUND, "5002", "해당 나라를 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String code;
