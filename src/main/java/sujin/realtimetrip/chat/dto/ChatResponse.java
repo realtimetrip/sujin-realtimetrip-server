@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ChatResponse {
-    private Long roomId;
+    private String chatRoomID;
     private Long userId;
     private String nickName;
     private String message;
@@ -17,7 +17,7 @@ public class ChatResponse {
     private LocalDateTime timestamp;
 
     public ChatResponse(ChatRequest chatRequest) {
-        this.roomId = chatRequest.getRoomId();
+        this.chatRoomID = chatRequest.getChatRoomId();
         this.userId = chatRequest.getUserId();
         this.message = chatRequest.getMessage();
         this.nickName = chatRequest.getNickName();
