@@ -17,6 +17,16 @@ public class ChatResponse {
     private LocalDateTime eventTime;
     private MessageType type;
 
+    public ChatResponse(Long chatId, String chatRoomId, Long userId, String nickName, String message, LocalDateTime eventTime, MessageType type) {
+        this.chatId = chatId;
+        this.chatRoomId = chatRoomId;
+        this.userId = userId;
+        this.nickName = nickName;
+        this.message = message;
+        this.eventTime = eventTime;
+        this.type = type;
+    }
+
     public ChatResponse(Long chatId, ChatRequest chatRequest, String nickName) {
         this.chatId = chatId;
         this.chatRoomId = chatRequest.getChatRoomId();
