@@ -12,6 +12,8 @@ import sujin.realtimetrip.chat.dto.ChatRequest;
 import sujin.realtimetrip.chat.dto.ChatResponse;
 import sujin.realtimetrip.global.exception.CustomException;
 import sujin.realtimetrip.global.exception.ErrorCode;
+import sujin.realtimetrip.user.entity.User;
+import sujin.realtimetrip.user.repository.UserRepository;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,6 +23,7 @@ public class RedisSubscriber implements MessageListener {
     private final ObjectMapper objectMapper;
     private final RedisTemplate<String, Object> redisTemplate;
     private final SimpMessageSendingOperations messagingTemplate;
+    private final UserRepository userRepository;
 
     // Redis에서 메시지 수신 시 호출
     @Override
@@ -31,8 +34,12 @@ public class RedisSubscriber implements MessageListener {
             // 역직렬화된 문자열을 ChatMessageRequest 객체로 변환
             ChatRequest roomMessage = objectMapper.readValue(publishMessage, ChatRequest.class);
 
+            User user = userRepository.findById(roomMessage.getUserId())
+                    .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
             // ChatMessageRequest 객체를 GetChatMessageResponse 객체로 변환
-            ChatResponse chatMessageResponse = new ChatResponse(roomMessage);
+            ChatResponse chatMessageResponse = new ChatResponse(roomMessage, user.getNickName());
+
             // 특정 WebSocket 경로로 메시지 전송
             messagingTemplate.convertAndSend("/sub/chat/room/" + roomMessage.getChatRoomId(), chatMessageResponse);
         } catch (Exception e) {

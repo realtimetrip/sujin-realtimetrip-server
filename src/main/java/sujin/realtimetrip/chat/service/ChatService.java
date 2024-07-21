@@ -58,7 +58,6 @@ public class ChatService {
             String topic = channelTopic.getTopic();
 
             // ChatMessageRequest에 유저정보 저장
-            chatRequest.setNickName(chatUser.getUser().getNickName());
             chatRequest.setUserId(chatUser.getUser().getId());
 
             // 메시지를 Redis를 통해 해당 토픽으로 전송
@@ -93,7 +92,7 @@ public class ChatService {
             // 채널 토픽 가져오기
             String topic = channelTopic.getTopic();
             // 입장 메시지를 설정
-            chatRequest.setMessage(chatRequest.getNickName() + " 님 입장했습니다.");
+            chatRequest.setMessage(user.getNickName() + " 님이 입장했습니다.");
             // 설정된 메시지를 Redis를 통해 해당 토픽으로 전송
             redisTemplate.convertAndSend(topic, chatRequest);
         }

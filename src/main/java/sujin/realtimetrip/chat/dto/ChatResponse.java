@@ -9,19 +9,20 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ChatResponse {
-    private String chatRoomID;
+    private Long chatId;
+    private String chatRoomId;
     private Long userId;
     private String nickName;
     private String message;
+    private LocalDateTime eventTime;
     private MessageType type;
-    private LocalDateTime timestamp;
 
-    public ChatResponse(ChatRequest chatRequest) {
-        this.chatRoomID = chatRequest.getChatRoomId();
+    public ChatResponse(ChatRequest chatRequest, String nickName) {
+        this.chatRoomId = chatRequest.getChatRoomId();
         this.userId = chatRequest.getUserId();
+        this.nickName = nickName;
         this.message = chatRequest.getMessage();
-        this.nickName = chatRequest.getNickName();
+        this.eventTime = LocalDateTime.now();
         this.type = chatRequest.getType();
-        this.timestamp = LocalDateTime.now();
     }
 }
