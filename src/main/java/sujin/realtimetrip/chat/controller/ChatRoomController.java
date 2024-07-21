@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sujin.realtimetrip.chat.dto.ChatRoomDto;
+import sujin.realtimetrip.chat.dto.ChatRoomUserDto;
 import sujin.realtimetrip.chat.dto.CountryDto;
 import sujin.realtimetrip.chat.service.ChatRoomService;
 import sujin.realtimetrip.global.response.ApiResponse;
@@ -28,5 +29,11 @@ public class ChatRoomController {
     @GetMapping("/chatroom")
     public ResponseEntity<ApiResponse<List<ChatRoomDto>>> getChatRoom() {
         return ResponseEntity.ok().body(ApiResponse.success(chatService.getChatRoom()));
+    }
+
+    // 채팅방 유저 목록 조회
+    @GetMapping("/chatroom/{chatroomId}/users")
+    public ResponseEntity<ApiResponse<List<ChatRoomUserDto>>> getChatRoomUser(@PathVariable String  chatroomId) {
+        return ResponseEntity.ok().body(ApiResponse.success(chatService.getChatRoomUsers(chatroomId)));
     }
 }

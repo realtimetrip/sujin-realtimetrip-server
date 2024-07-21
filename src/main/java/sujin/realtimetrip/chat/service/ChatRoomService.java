@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import sujin.realtimetrip.chat.dto.ChatRoomDto;
+import sujin.realtimetrip.chat.dto.ChatRoomUserDto;
 import sujin.realtimetrip.chat.dto.CountryDto;
 import sujin.realtimetrip.chat.entity.ChatRoom;
+import sujin.realtimetrip.chat.entity.ChatRoomUser;
 import sujin.realtimetrip.chat.repository.ChatRoomRepository;
+import sujin.realtimetrip.chat.repository.ChatRoomUserRepository;
 import sujin.realtimetrip.country.entity.Country;
 import sujin.realtimetrip.country.repository.CountryRepository;
 import sujin.realtimetrip.global.exception.CustomException;
@@ -24,6 +27,7 @@ public class ChatRoomService {
 
     private final CountryRepository countryRepository;
     private final ChatRoomRepository chatRoomRepository;
+    private final ChatRoomUserRepository chatRoomUserRepository;
 
     public List<CountryDto> insertCountriesAndChatRooms() {
         String[] countryData = {
@@ -76,6 +80,16 @@ public class ChatRoomService {
                         room.getId(),
                         room.getCountry().getCountryName(),
                         room.getUserCount()))
+                .collect(Collectors.toList());
+    }
+
+    public List<ChatRoomUserDto> getChatRoomUsers(String chatRoomId) {
+        List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findByChatRoomId(chatRoomId);
+        return chatRoomUsers.stream()
+                .map(user -> new ChatRoomUserDto(
+                        user.getUser().getId().toString(),
+                        user.getUser().getNickName(),
+                        user.getUser().getProfile()))
                 .collect(Collectors.toList());
     }
 }
