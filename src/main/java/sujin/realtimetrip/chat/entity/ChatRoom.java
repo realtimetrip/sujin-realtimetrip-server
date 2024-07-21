@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import sujin.realtimetrip.country.entity.Country;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -17,9 +18,8 @@ import java.util.List;
 @Table(name = "chat_room")
 public class ChatRoom {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "chat_room_id")
-    private Long id;
+    @Column(name = "chat_room_id", updatable = false, nullable = false)
+    private String id;
 
     @Column(name = "user_count")
     private Long userCount;
@@ -35,6 +35,7 @@ public class ChatRoom {
     private Country country;
 
     public ChatRoom(Country country) {
+        this.id = UUID.randomUUID().toString();
         this.userCount = 0L;
         this.lastChatId = 0L;
         this.country = country;

@@ -38,10 +38,10 @@ public class ChatService {
     public void sendMessage(ChatRequest chatRequest) {
         if (chatRequest.getType().equals(MessageType.TALK)) {
             // 채팅방에 입장했던 유저인지 확인
-            ChatRoomUser chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getRoomId(), chatRequest.getUserId())
+            ChatRoomUser chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getChatRoomId(), chatRequest.getUserId())
                     .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
             // 채팅방 불러오기
-            ChatRoom chatRoom = chatRoomRepository.findById(chatRequest.getRoomId())
+            ChatRoom chatRoom = chatRoomRepository.findById(chatRequest.getChatRoomId())
                     .orElseThrow(() -> new CustomException(ErrorCode.CHAT_ROOM_NOT_FOUND));
 
             //채팅 생성 및 저장
@@ -70,14 +70,14 @@ public class ChatService {
     public void enterUser(ChatRequest chatRequest) {
         if (chatRequest.getType().equals(MessageType.ENTER)) {
             // 이미 채팅방에 입장했던 유저인지 확인
-            Optional<ChatRoomUser> chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getRoomId(), chatRequest.getUserId());
+            Optional<ChatRoomUser> chatUser = chatUserRepository.findByChatRoomIdAndUserId(chatRequest.getChatRoomId(), chatRequest.getUserId());
 
             if (chatUser.isPresent()) {
                 throw new CustomException(ErrorCode.USER_ALREADY_IN_CHAT_ROOM);
             }
 
             // 채팅방 불러오기
-            ChatRoom chatRoom = chatRoomRepository.findById(chatRequest.getRoomId())
+            ChatRoom chatRoom = chatRoomRepository.findById(chatRequest.getChatRoomId())
                     .orElseThrow(() -> new CustomException(ErrorCode.CHAT_ROOM_NOT_FOUND));
 
             // user 객체 불러오기
