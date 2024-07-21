@@ -4,11 +4,11 @@ import org.springframework.http.HttpStatus;
 
 public class ApiResponse<T> {
     private boolean success;
-    private String code;
+    private Integer code;
     private String message;
     private T data;
 
-    public ApiResponse(boolean success, String code, String message, T data) {
+    public ApiResponse(boolean success, Integer code, String message, T data) {
         this.success = success;
         this.code = code;
         this.message = message;
@@ -23,11 +23,11 @@ public class ApiResponse<T> {
         this.success = success;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -49,7 +49,7 @@ public class ApiResponse<T> {
 
     // 성공 응답 생성
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(true, String.valueOf(HttpStatus.OK.value()), "ok", data);
+        return new ApiResponse<>(true, HttpStatus.OK.value(), "ok", data);
     }
 
 }
