@@ -28,7 +28,7 @@
 
 <!-- API Sheet -->
 ## API Sheet
-- <a href="https://su01.notion.site/API-1783d74a0fb48100a67dc3c9b5d41e2e?pvs=4">Notion</a>
+- <a href="https://su01.notion.site/API-1fc3d74a0fb481ba871cc79018357265?pvs=4">Notion</a>
 
 <!-- TechStack -->
 ## Tech Stack
