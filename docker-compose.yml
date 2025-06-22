@@ -4,10 +4,10 @@ services:
     image: "${DOCKERHUB_USERNAME}/${PROJECT_NAME}:latest"
     ports:
       - "${PORT}:${PORT}"
+    volumes:
+      - ./application.yml:/app/config/application.yml
     environment:
-      SPRING_DATASOURCE_URL: ${DB_URL}
-      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      - SPRING_CONFIG_LOCATION=file:/app/config/application.yml
     depends_on:
       - redis
   redis:

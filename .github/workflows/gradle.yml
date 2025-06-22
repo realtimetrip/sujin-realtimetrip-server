@@ -60,7 +60,17 @@ jobs:
         source: "docker-compose.yml"
         target: "~/realtimetrip"
 
-    # EC2에 접속해 .env, application.yml 생성 + docker-compose 실행
+    # application.yml 생성 (마운트용)
+    - name: Create application.yml on EC2
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          echo "${{ secrets.APPLICATION }}" > ~/realtimetrip/application.yml
+
+    # EC2에서 Docker Compose로 애플리케이션 실행
     - name: Application Run
       uses: appleboy/ssh-action@v0.1.6
       with:
@@ -68,18 +78,6 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_KEY }}
         script: |
-          # .env 파일 생성
-          echo "PORT=${{ secrets.PORT }}" > ~/realtimetrip/.env
-          echo "DB_URL=${{ secrets.DB_URL }}" >> ~/realtimetrip/.env
-          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> ~/realtimetrip/.env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> ~/realtimetrip/.env
-          echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> ~/realtimetrip/.env
-          echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" >> ~/realtimetrip/.env
-
-          # application.yml 생성
-          echo "${{ secrets.APPLICATION }}" > ~/realtimetrip/src/main/resources/application.yml
-
-          # docker-compose 실행
           cd ~/realtimetrip
           sudo docker compose pull
           sudo docker compose down
