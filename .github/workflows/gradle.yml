@@ -73,6 +73,8 @@ jobs:
           echo "DB_URL=${{ secrets.DB_URL }}" >> ~/realtimetrip/.env
           echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> ~/realtimetrip/.env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> ~/realtimetrip/.env
+          echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> ~/realtimetrip/.env
+          echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" >> ~/realtimetrip/.env
 
           # application.yml 생성
           echo "${{ secrets.APPLICATION }}" > ~/realtimetrip/src/main/resources/application.yml
