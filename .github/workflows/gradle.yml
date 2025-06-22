@@ -70,6 +70,18 @@ jobs:
         script: |
           echo "${{ secrets.APPLICATION }}" > ~/realtimetrip/application.yml
 
+    # EC2에 .env 파일 생성 (.env는 docker-compose에서 참조하는 환경 변수 파일)
+    - name: Create .env file on EC2
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          echo "PORT=${{ secrets.PORT }}" > ~/realtimetrip/.env
+          echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> ~/realtimetrip/.env
+          echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" >> ~/realtimetrip/.env
+
     # EC2에서 Docker Compose로 애플리케이션 실행
     - name: Application Run
       uses: appleboy/ssh-action@v0.1.6
