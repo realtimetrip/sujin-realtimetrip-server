@@ -1,0 +1,20 @@
+services:
+  app:
+    image: "${DOCKERHUB_USERNAME}/${PROJECT_NAME}:latest"
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ./application.yml:/app/config/application.yml
+    environment:
+      - SPRING_CONFIG_LOCATION=file:/app/config/application.yml
+    depends_on:
+      - redis
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - ./redis-data:/data

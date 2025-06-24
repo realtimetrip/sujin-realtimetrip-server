@@ -9,6 +9,9 @@ build/
 *.properties
 *.yml
 
+# docker-compose.yml 추적 예외 처리
+!docker-compose.yml
+
 ### STS ###
 .apt_generated
 .classpath
